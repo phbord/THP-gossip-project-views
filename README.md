@@ -14,14 +14,6 @@ Things you may want to cover:
 
 * Configuration
 
-* Controller creation
-  * `rails g controller home show`
-  * `rails g controller team show`
-  * `rails g controller contact show`
-  * `rails g controller welcome show`
-  * `rails g controller gossip show`
-  * `rails g controller user show`
-
 * Database creation
   * `rails generate model User first_name:string last_name:string describtion:text age:integer`
   * `rails generate model City name:string zip_code:string`
@@ -32,6 +24,15 @@ Things you may want to cover:
   * `rails generate model PrivateMessage content:text`
 
 * Database initialization
+
+* Controller creation
+  * `rails g controller home show`
+  * `rails g controller team show`
+  * `rails g controller contact show`
+  * `rails g controller welcome show`
+  * `rails g controller gossip show`
+  * `rails g controller user show`
+  * `rails g controller gossips index create new destroy show`
 
 * How to run the test suite
 
@@ -77,3 +78,19 @@ Things you may want to cover:
 - contact => adresse de contact
 - équipe => toi et ton binome
 - bienvenue => accueille l'utilisateur en fonction du nom passé dans l'URL
+
+## Création d'un potin
+- méthodes `#new` et `#create`
+- views
+  - `gossips/new.html.erb` => new
+  - `gossips.html.erb` => create (renvoie vers l'index)
+- formulaire `form_tag` (new)
+  - `title`
+  - `content`
+  - méthode `#create` => validation
+- controller `gossips`
+  - méthode `#create`
+  - si formulaire "accepté" => alerte (verte)
+  - si formulaire "refusé" => reste sur la page + alerte (rouge)
+  - créer (en console) un utilisateur nommé `anonymous`
+    - y associer tous les potins créés dans la view `new`
