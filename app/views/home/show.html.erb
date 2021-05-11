@@ -8,7 +8,9 @@
                     <div class="card-body">
                         <h5 class="card-title"><%= g.title %></h5>
                         <div class="card-text"><%= g.user.first_name %></div>
-                        <%= link_to g.title, {controller: "gossip", action: "show", id: g.id}, class: "btn btn-primary mt-3" %>
+                        <div class="mt-3">
+                            <%= link_to g.title, gossip_path(g.id), class: "btn btn-primary" %>
+                        </div>
                     </div>
                 </div>
             </li>

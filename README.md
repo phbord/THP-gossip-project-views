@@ -32,7 +32,7 @@ Things you may want to cover:
   * `rails g controller welcome show`
   * `rails g controller gossip show`
   * `rails g controller user show`
-  * `rails g controller gossips index create new destroy show`
+  * `rails g controller gossips index new create show edit update destroy`
 
 * How to run the test suite
 
@@ -80,17 +80,19 @@ Things you may want to cover:
 - bienvenue => accueille l'utilisateur en fonction du nom passé dans l'URL
 
 ## Création d'un potin
-- méthodes `#new` et `#create`
-- views
-  - `gossips/new.html.erb` => new
-  - `gossips.html.erb` => create (renvoie vers l'index)
-- formulaire `form_tag` (new)
-  - `title`
-  - `content`
-  - méthode `#create` => validation
-- controller `gossips`
-  - méthode `#create`
-  - si formulaire "accepté" => alerte (verte)
-  - si formulaire "refusé" => reste sur la page + alerte (rouge)
-  - créer (en console) un utilisateur nommé `anonymous`
-    - y associer tous les potins créés dans la view `new`
+### méthodes
+- `#new`
+- `#create`
+### views
+- `gossips/new.html.erb` => new
+- `gossips.html.erb` => create (renvoie vers l'index)
+### formulaire `form_tag` (new)
+- `title`
+- `content`
+- méthode `#create` => validation
+### controller `gossips`
+- méthode `#create`
+- si formulaire "accepté" => alerte (verte)
+- si formulaire "refusé" => reste sur la page + alerte (rouge)
+- créer (en console) un utilisateur nommé `anonymous`
+  - y associer tous les potins créés dans la view `new`

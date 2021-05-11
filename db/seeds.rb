@@ -29,7 +29,7 @@ PrivateMessage.destroy_all
     User.create!(
         first_name: Faker::Name.last_name,
         last_name: Faker::Name.last_name,
-        describtion: Faker::Lorem.sentence(word_count: 1),
+        describtion: Faker::Lorem.paragraph_by_chars(number: 10, supplemental: false),
         age: Faker::Number.number(digits: 2),
         city: City.all.sample
     )
@@ -50,7 +50,7 @@ Comment.create!(
 
 19.times do
     Gossip.create!(
-        title: Faker::Lorem.sentence(word_count: 1),
+        title: Faker::Lorem.paragraph_by_chars(number: 10, supplemental: false),
         content: Faker::Lorem.sentence(word_count: 10),
         user: User.all.sample,
         tag: Tag.all.sample
