@@ -1,5 +1,19 @@
 <div class="container pt-5">
     <h1>Accueil</h1>
+
+    <%# ALERT %>
+    <% flash.each do |type, msg| %>
+        <div class="alert alert-success my-3" role="alert">
+            <%= msg %>
+        </div>
+    <% end %>
+
+    <%# AJOUTER UN POTIN %>
+    <div class="mt-3">
+        <%= link_to "Ajouter un potin", new_gossip_path, class: "btn btn-primary" %>
+    </div>
+
+    <%# LISTE DES POTINS %>
     <p class="mt-3">Liste des potins</p>
     <ul class="row d-flex justify-content-start">
         <% Gossip.all.each do |g| %>
