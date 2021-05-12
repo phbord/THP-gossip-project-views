@@ -5,8 +5,7 @@ class GossipsController < ApplicationController
   end
 
   def new
-    @post = Tag.all
-    #@tags = tags_all
+    @tags = tags_all
   end
 
   def create
@@ -68,6 +67,8 @@ class GossipsController < ApplicationController
     end
   end
 
+  private
+
   def gossip_find
     Gossip.find(params[:id])
   end
@@ -77,6 +78,7 @@ class GossipsController < ApplicationController
   end
 
   def tags_all
-    Tag.all.map { |t| [ t.title, t.id ] }
+    Tag.all
+    #Tag.all.map { |t| [ t.title, t.id ] }
   end
 end
