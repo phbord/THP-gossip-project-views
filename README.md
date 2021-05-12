@@ -33,6 +33,7 @@ Things you may want to cover:
   * `rails g controller city show`
   * `rails g controller gossips index new create show edit update destroy`
   * `rails g controller comments index new create show edit update destroy`
+  * `rails g controller tags index new create show edit update destroy`
 
 * How to run the test suite
 
@@ -107,4 +108,10 @@ Things you may want to cover:
 - modification => page "edit"
 - destroy
 ### Tags
-- 
+- ajouter un tag à la _création du potin_
+  - `select` => affiche tous les tags
+    - soit en HTML
+    - soit helper `select_tag` (lié à un `form_tag`)
+  - controller => met à disposition de la "view", un array de tags
+- GOD MODE : ajouter plusieurs tags à un potin
+  - regarder le concept des `nested forms`

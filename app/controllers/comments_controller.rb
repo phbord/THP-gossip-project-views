@@ -1,7 +1,5 @@
 class CommentsController < ApplicationController
   def index
-	p 'nivhr'
-	debugger
   end
 
   def new
@@ -16,11 +14,7 @@ class CommentsController < ApplicationController
       'comment_type_type' => Gossip
     )
     #Sauvegarde en BDD
-    puts "*"*30
-    p @post.comment_type_id
-    puts "*"*30
     if @post.save
-      puts "OK !!!!!!!!!!"
       redirect_to gossips_path, alert: "Enregistrement réussi !"
     else
       flash.now[:alert] = "Echec à l'enregistrement !"

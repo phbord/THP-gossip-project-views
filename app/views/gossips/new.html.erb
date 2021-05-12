@@ -18,6 +18,11 @@
             <%= label_tag 'Contenu' %>
             <%= text_area_tag 'content', '', required: true, class: 'form-control' %>
         </div>
+        <div class="form-group">
+            <%= label_tag 'Tags' %>
+            <%= select_tag 'tag', options_from_collection_for_select(@tags, :id, :title), include_blank: "Sélectionner un tag", required: true, class: 'form-control' %>
+            <%#= select_tag(:tag, options_for_select(@tags), include_blank: "Sélectionner un tag", class: 'form-control') %>
+        </div>
         <%= submit_tag "Envoyer", class: 'btn btn-primary' %>
     <% end %>
 </div>

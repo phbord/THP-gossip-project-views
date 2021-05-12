@@ -5,6 +5,8 @@ class GossipsController < ApplicationController
   end
 
   def new
+    @post = Tag.all
+    #@tags = tags_all
   end
 
   def create
@@ -13,7 +15,8 @@ class GossipsController < ApplicationController
       'title' => params[:title],
       'content' => params[:content],
       'user_id' => User.find_by(first_name: "anonymous").id,
-      'tag_id' => Tag.all.sample.id
+      #'tag_id' => Tag.all.sample.id
+      'tag_id' => params[:tag]
     )
 
     #Sauvegarde en BDD
@@ -71,5 +74,9 @@ class GossipsController < ApplicationController
 
   def comments_all
     Comment.all
+  end
+
+  def tags_all
+    Tag.all.map { |t| [ t.title, t.id ] }
   end
 end

@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   resources :contact, only: [:index]
   resources :team, only: [:index]
 
+  resources :tags
+
   resources :gossips do
     resources :comments, except: [:index, :new] do
       resources :comments, except: [:index, :new]
