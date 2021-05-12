@@ -26,12 +26,13 @@ Things you may want to cover:
 * Database initialization
 
 * Controller creation
-  * `rails g controller team show`
-  * `rails g controller contact show`
+  * `rails g controller team index`
+  * `rails g controller contact index`
   * `rails g controller welcome show`
-  * `rails g controller gossip show`
   * `rails g controller user show`
+  * `rails g controller city show`
   * `rails g controller gossips index new create show edit update destroy`
+  * `rails g controller comments index new create show edit update destroy`
 
 * How to run the test suite
 
@@ -96,3 +97,14 @@ Things you may want to cover:
 - si formulaire "refusé" => reste sur la page + alerte (rouge)
 - créer (en console) un utilisateur nommé `anonymous`
   - y associer tous les potins créés dans la view `new`
+### Commentaires
+- _nombre_ de commentaires => page "index" (de "gossip")
+  - pour chaque potin
+- création
+  - formulaire et liste => page "show" (de "gossip")
+    - commentaire
+    - auteur (nommé `anonymous`)
+- modification => page "edit"
+- destroy
+### Tags
+- 

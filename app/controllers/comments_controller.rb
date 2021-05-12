@@ -1,7 +1,7 @@
-class GossipsController < ApplicationController
+class CommentsController < ApplicationController
   def index
-    @gossips = Gossip.all
-    @comments = comments_all
+	p 'nivhr'
+	debugger
   end
 
   def new
@@ -9,39 +9,41 @@ class GossipsController < ApplicationController
 
   def create
     #Récupération des champs du formulaire
-    @post = Gossip.new(
-      'title' => params[:title],
+    @post = Comment.new(
       'content' => params[:content],
       'user_id' => User.find_by(first_name: "anonymous").id,
-      'tag_id' => Tag.all.sample.id
+      'comment_type_id' => params[:gossip_id],
+      'comment_type_type' => Gossip
     )
-
     #Sauvegarde en BDD
+    puts "*"*30
+    p @post.comment_type_id
+    puts "*"*30
     if @post.save
+      puts "OK !!!!!!!!!!"
       redirect_to gossips_path, alert: "Enregistrement réussi !"
     else
       flash.now[:alert] = "Echec à l'enregistrement !"
-      render 'new'
+      render gossip_path
     end
   end
 
   def show
-    @gossip = gossip_find
-    @id = params[:id]
   end
 
   def edit
-    @gossip = gossip_find
+    @id = params[:id]
+    @comment = Comment.find(params[:id])
   end
 
   def update
     #Récupération des champs du formulaire
     @model = Model.find(params[:id])
     update_params = [
-      'title' => params[:title],
       'content' => params[:content],
       'user_id' => User.find_by(first_name: "anonymous").id,
-      'tag_id' => Tag.all.sample.id
+      'comment_type_id' => params[:gossip_id],
+      'comment_type_type' => Gossip
     ]
 
     #Sauvegarde en BDD
@@ -54,22 +56,14 @@ class GossipsController < ApplicationController
   end
 
   def destroy
-    @gossip = gossip_find
+    @comment = Comment.find(params[:id])
 
     #Sauvegarde en BDD
-    if @gossip.destroy
+    if @comment.destroy
       redirect_to gossips_path, alert: "Suppression réussie !"
     else
       flash.now[:alert] = "Echec à la suppression !"
       render :show
     end
-  end
-
-  def gossip_find
-    Gossip.find(params[:id])
-  end
-
-  def comments_all
-    Comment.all
   end
 end

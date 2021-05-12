@@ -1,0 +1,25 @@
+<div class="container pt-5">
+    <h1>Ville de "<%= @city.name %>"</h1>
+
+    <%# LISTE DES POTINS %>
+    <p class="mt-3">Liste des potins</p>
+    <ul class="row d-flex justify-content-start">
+        <% @gossips.each do |g| %>
+            <li class="col-12 col-md-4 col-lg-3 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"><%= g.title %></h5>
+                        <div class="card-text"><%= g.user.first_name %></div>
+                        <div class="mt-3">
+                            <%= link_to g.title, gossip_path(g.id), class: "btn btn-success" %>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        <% end %>
+    </ul>
+
+    <div class="my-3">
+        <%= link_to "Accueil", gossips_path, class: "btn btn-primary" %>
+    </div>
+</div>

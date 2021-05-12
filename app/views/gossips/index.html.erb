@@ -9,21 +9,30 @@
     <% end %>
 
     <%# AJOUTER UN POTIN %>
-    <div class="mt-3">
+    <div class="my-3">
         <%= link_to "Ajouter un potin", new_gossip_path, class: "btn btn-primary" %>
     </div>
 
     <%# LISTE DES POTINS %>
     <p class="mt-3">Liste des potins</p>
     <ul class="row d-flex justify-content-start">
-        <% Gossip.all.each do |g| %>
+        <% @gossips.all.each do |g| %>
             <li class="col-12 col-md-4 col-lg-3 mb-3">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title"><%= g.title %></h5>
-                        <div class="card-text"><%= g.user.first_name %></div>
+                        <h5 class="card-title">
+                            <%= g.title %>
+                        </h5>
+                        <div class="card-text">
+                            <%= g.user.first_name %>
+                        </div>
+                        <div class="card-text text-muted">
+                            <%= @comments.where(comment_type_id: g.id).count %> commentaires
+                        </div>
+                    </div>
+                    <div class="card-footer">
                         <div class="mt-3">
-                            <%= link_to g.title, gossip_path(g.id), class: "btn btn-primary" %>
+                            <%= link_to g.title, gossip_path(g.id), class: "btn btn-success" %>
                         </div>
                     </div>
                 </div>

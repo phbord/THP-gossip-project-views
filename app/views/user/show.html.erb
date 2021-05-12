@@ -4,14 +4,20 @@
     <div class="card mt-3">
         <div class="card-body">
             <h5 class="card-title">
-                <%= User.find(params[:id]).first_name %>
-                <%= User.find(params[:id]).last_name %>
+                <%= @user.first_name %>
+                <%= @user.last_name %>
             </h5>
+            <p class="card-text">
+                <%= @user.describtion %>
+            </p>
             <div class="card-text">
-                <p><%= User.find(params[:id]).describtion %></p>
-                <p>Age : <%= User.find(params[:id]).age %></p>
+                Age : <%= @user.age %>
+            </div>
+            <div class="card-text">
+                Ville : <%= @user.city.name %>
             </div>
             <div class="mt-3">
+                <%= link_to "Ville", city_path(@user.city_id), class: "btn btn-success" %>
                 <%= link_to "Accueil", gossips_path, class: "btn btn-primary" %>
             </div>
         </div>

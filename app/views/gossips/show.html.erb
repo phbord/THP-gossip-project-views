@@ -1,15 +1,79 @@
 <div class="container pt-5">
-    <h1>Potin <%= params[:id] %></h1>
-    <p class="mt-3"></p>
+    <h1>Potin <%= @id %></h1>
+
     <div class="card mt-3">
-        <div class="card-body">
-            <h5 class="card-title"><%= Gossip.find(params[:id]).title %></h5>
-            <div class="card-text"><%= Gossip.find(params[:id]).content %></div>
-            <div class="card-text">crée le <%= Gossip.find(params[:id]).created_at.strftime("%d/%m/%Y") %></div>
-            <div class="mt-3">
-                <%= link_to Gossip.find(params[:id]).user.first_name, user_path(Gossip.find(params[:id]).user.id), class: "btn btn-secondary" %>
+        <%# BODY %>
+        <ul class="list-group list-group-flush">
+            <%# Contenu %>
+            <li class="list-group-item">
+                <h5 class="card-title">
+                    <%= @gossip.title %>
+                </h5>
+                <div>
+                    <%= @gossip.content %>
+                </div>
+                <div>
+                    <em>
+                        crée le <%= @gossip.created_at.strftime("%d/%m/%Y") %> 
+                        par <%= @gossip.user.first_name %> <%= @gossip.user.first_name %> 
+                        à <%= @gossip.user.city.name %>
+                    </em>
+                </div>
+                <%# Boutons "Edition" et "Suppression" %>
+                <div class="my-3">
+                    <%= link_to "Editer", edit_gossip_path(@gossip.id), class: "btn btn-outline-primary btn-sm" %>
+                    <%= link_to "supprimer", gossip_path(@gossip.id), :method => :delete, class: "btn btn-outline-danger btn-sm", data: { 
+                        method: "DELETE", 
+                        confirm: "êtes-vous sûr?" 
+                    } %>
+                </div>
+            </li>
+            <%# COMMENTAIRES %>
+            <li class="list-group-item">
+                <h5 class="card-title">Commentaires</h5>
+                <%# Liste %>
+                <ul class="">
+                    <%# @comments.where(comment_type_id: @id).each do |comment| %>
+                    <% @gossip.comments.each do |comment| %>
+                        <li class="text-muted mb-3">
+                            <div class="card-text">
+                                <%= comment.content %>
+                            </div>
+                            <div class="card-text">
+                                <em>
+                                    auteur : 
+                                    <%= User.find(@gossip.user.id).first_name %> 
+                                    <%= User.find(@gossip.user.id).last_name %>
+                                </em>
+                            </div>
+                            <%# Bouton "Edition" %>
+                            <div class="my-3">
+                                <%= link_to "Editer", edit_gossip_comment_path(@gossip.id, comment.id), class: "btn btn-outline-primary btn-sm" %>
+                            </div>
+                        </li>
+                    <% end %>
+                </ul>
+                <%# FORMULAIRE %>
+                <%= form_tag(gossip_comments_path(@id), method: "post") do %>
+                    <%= text_field_tag 'gossip_id', @id, type: 'hidden', class: 'form-control' %>
+                    <div class="form-group">
+                        <%= label_tag 'Nouveau commentaire' %>
+                        <%= text_area_tag 'content', '', required: true, class: 'form-control' %>
+                    </div>
+                    <%= submit_tag "Envoyer", class: 'btn btn-outline-primary btn-sm' %>
+                <% end %>
+            </li>
+        </ul>
+
+        <%# FOOTER %>
+        <div class="card-footer">
+            <%# Boutons "Utilisateur", "Ville" et "Accueil" %>
+            <div class="my-3">
+                <%= link_to "Utilisateur", user_path(@gossip.user.id), class: "btn btn-info" %>
+                <%= link_to "Ville", city_path(@gossip.user.city.id), class: "btn btn-info" %>
                 <%= link_to "Accueil", gossips_path, class: "btn btn-primary" %>
             </div>
         </div>
     </div>
 </div>
+

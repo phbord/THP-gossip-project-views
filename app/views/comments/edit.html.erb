@@ -1,0 +1,27 @@
+<div class="container pt-5">
+    <h1>Editer un commentaire</h1>
+
+    <%# ALERTE %>
+    <% flash.each do |type, msg| %>
+        <div class="alert alert-danger" role="alert">
+            <%= msg %>
+        </div>
+    <% end %>
+
+    <%# FORMULAIRE %>
+    <%= form_tag url_for(action: 'create'), method: "post" do %>
+        <div class="form-group">
+            <%= label_tag 'Commentaire' %>
+            <%= text_area_tag 'content', @comment.content, required: true, class: 'form-control' %>
+        </div>
+        <%= submit_tag "Envoyer", class: 'btn btn-primary' %>
+    <% end %>
+
+    <%# Bouton "Suppression" %>
+    <div class="my-3">
+        <%= link_to "supprimer", gossip_comment_path(@id), :method => :delete, class: "btn btn-outline-danger btn-sm", data: { 
+            method: "DELETE", 
+            confirm: "êtes-vous sûr?" 
+        } %>
+    </div>
+</div>
