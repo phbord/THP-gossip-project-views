@@ -164,3 +164,8 @@ Things you may want to cover:
   1. index des potins
   2. affichage d'un potin
   3. villes (liste des potins d'une ville)
+
+### Mise en ligne sur Heroku
+### Système de cookies
+
+### Checkbox _Se souvenir de moi_
