@@ -13,33 +13,12 @@ class LikesController < ApplicationController
     p current_user
     p params[:type]
     puts ">"*30
-    @like = Like.new(
+    @like = Like.create!(
       user_id: current_user.id,
       like_target_id: params[:id],
       like_target_type: params[:type]
     )
-    id = params[:id]
-    puts "*"*30
-    puts id
-    p @like
-    puts "*"*30
-    unless Like.find_by(like_target_id: params[:id])
-      puts "="*30
-      puts "="*30
-      puts "COUCOU if"
-      puts "="*30
-      puts "="*30
-      flash.now[:alert] = "Ce like existe !"
-      redirect_back(fallback_location: gossips_path)
-    end
-
-    #Sauvegarde en BDD
-    # if @post.save
-    #   redirect_to gossips_path, alert: "Like enregistré !"
-    # else
-    #   flash.now[:alert] = "Echec à l'enregistrement du like !"
-    #   render gossips_path
-    # end
+    redirect_back(fallback_location: gossips_path)
   end
 
   def show
@@ -52,6 +31,10 @@ class LikesController < ApplicationController
   end
 
   def destroy
+    #l = Like.find_by(id: params[:id])
+    l = Like.find_by(like_target_id: params[:id])
+    l.delete
+    #l.destroy
   end
 end
 
