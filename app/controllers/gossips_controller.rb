@@ -4,6 +4,7 @@ class GossipsController < ApplicationController
   def index
     @gossips = Gossip.all
     @comments = comments_all
+    @likes = Like.all
   end
 
   def new

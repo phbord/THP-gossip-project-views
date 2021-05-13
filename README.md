@@ -36,6 +36,7 @@ Things you may want to cover:
   * `rails g controller tags index new create show edit update destroy`
   * `rails generate migration AddEmailAndPasswordToUser`
   * `rails g controller sessions index new create show edit update destroy`
+  * `rails g controller likes index new create show edit update destroy`
 
 * How to run the test suite
 
@@ -155,10 +156,13 @@ Things you may want to cover:
 - pour éditer le potin => l'utilisateur connecté est le créateur du potin
   - méthodes `gossips#edit`, `gossips#update` et `gossips#destroy` => vérifient que le "current_user" soit bien le créateur du potin
 ### Like that
-- liker un potin + nombre de likes d'un potin, sur les pages
-  - index des potins
-  - villes (affiche les potins pour une ville)
-  - affichage d'un potin
-- like sera attribué à l'utilisateur en cours
-- impossible de liker si le visiteur n'est pas connecté
-- possible de déliker un potin
+- règles
+  - 1 user peut _liker_ une seule fois un gossip
+  - 1 _like_ ne peut avoir qu'un id de gossip, comment ou user
+- un utilisateur peut _liker_
+  - si pas connecté => impossible de _liker_
+  - possibilité de _déliker_ un potin
+- _liker_ + nombre de likes d'un potin sur
+  1. index des potins
+  2. affichage d'un potin
+  3. villes (affiche les potins pour une ville)
