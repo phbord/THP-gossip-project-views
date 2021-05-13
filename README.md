@@ -140,12 +140,14 @@ Things you may want to cover:
     - bouton pour lien (`users#new`)
     - lien pour se connecter (`sessions#new`)
   - si connecté => bouton pour se déconnecter (sessions#destroy)
-### Création des potins
-- le potin créé doit être associé à l'utilisateur connecté
-- idem pour les commentaires
+### Associations à l'utilisateur connecté
+- créer un potin
+- créer un commentaire
 ### Impossible de commérer sans inscription
-- méthodes `#new` et `#create` vérifient que l'utilisateur est bien connecté avant de se lancer
-- si pas connecté => redirection vers l'écran de login
+- vérification de la connexion (avant de se lancer)
+  - méthode `#new`
+  - méthode `#create`
+- si pas connecté => redirection vers l'écran de "login"
   - création de potins
   - affichage du potin
   - création de commentaires

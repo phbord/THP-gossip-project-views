@@ -11,12 +11,32 @@
     <%# FORMULAIRE %>
     <%= form_tag url_for(action: 'create'), method: "post" do %>
         <div class="form-group mt-3">
+            <%= label_tag 'Prénom' %>
+            <%= text_field_tag 'first_name', '', required: true, class: 'form-control' %>
+        </div>
+        <div class="form-group mt-3">
+            <%= label_tag 'Nom' %>
+            <%= text_field_tag 'last_name', '', required: true, class: 'form-control' %>
+        </div>
+        <div class="form-group">
+            <%= label_tag 'Description' %>
+            <%= text_area_tag 'describtion', '', required: true, class: 'form-control' %>
+        </div>
+        <div class="form-group mt-3">
+            <%= label_tag 'Age' %>
+            <%= text_field_tag 'age', '', required: true, class: 'form-control' %>
+        </div>
+        <div class="form-group mt-3">
+            <%= label_tag 'Ville' %>
+            <%= text_field_tag 'city', '', required: true, class: 'form-control' %>
+        </div>
+        <div class="form-group mt-3">
             <%= label_tag 'Email' %>
             <%= text_field_tag 'email', '', required: true, class: 'form-control' %>
         </div>
         <div class="form-group">
             <%= label_tag 'Mot de passe' %>
-            <%= text_field_tag 'password', '', required: true, class: 'form-control' %>
+            <%= password_field_tag 'password', '', required: true, class: 'form-control' %>
         </div>
         <%= submit_tag "Envoyer", class: 'btn btn-primary' %>
     <% end %>

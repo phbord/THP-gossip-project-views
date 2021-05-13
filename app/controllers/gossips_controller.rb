@@ -1,4 +1,6 @@
 class GossipsController < ApplicationController
+  before_action :authenticate_user, only: [:show, :new, :create, :edit, :update, :destroy]
+
   def index
     @gossips = Gossip.all
     @comments = comments_all
@@ -80,5 +82,14 @@ class GossipsController < ApplicationController
   def tags_all
     Tag.all
     #Tag.all.map { |t| [ t.title, t.id ] }
+  end
+
+  private
+
+  def authenticate_user
+    unless current_user
+      flash[:danger] = "Veuillez vous connecter !"
+      redirect_to new_session_path
+    end
   end
 end

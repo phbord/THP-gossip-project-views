@@ -23,12 +23,14 @@
   </head>
 
   <body>
+    <%# HEADER %>
     <header class="navbar navbar-expand-lg navbar-light bg-light">
       <%= link_to "Le Corre - Bord Inc.", gossips_path, class: "navbar-brand" %>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <%# MENU GAUCHE %>
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
             <%= link_to "L'équipe", team_index_path, class: "nav-link" %>
@@ -37,8 +39,32 @@
             <%= link_to "Contact", contact_index_path, class: "nav-link" %>
           </li>
         </ul>
+        <%# MENU DROIT %>
+        <ul class="d-flex mb-0">
+          <% if logged_in? %>
+            <%# Bouton de déconnexion %>
+            <li class="nav-item">
+              <%= link_to "se déconnecter", session_path(session.id), method: :delete, class: "btn btn-outline-primary" %>
+            </li>
+          <% else %>
+            <%# Dropdown %>
+            <li class="nav-item">
+              <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Dropdown button
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <%= link_to "S'inscrire", new_user_path, class: "btn btn-sm" %>
+                  <%= link_to "Se connecter", new_session_path, class: "btn btn-sm" %>
+                </div>
+              </div>
+            </li>
+          <% end %>
+        </ul>
       </div>
     </header>
+
+    <%# CONTENU %>
     <%= yield %>
   </body>
 </html>

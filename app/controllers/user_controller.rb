@@ -8,6 +8,7 @@ class UserController < ApplicationController
 
   def create
     #Récupération des champs du formulaire
+    city = City.find_by(name: params[:city])
     @post = User.new(
       'email' => params[:email],
       'password' => params[:password],
@@ -15,14 +16,15 @@ class UserController < ApplicationController
       'last_name' => params[:last_name],
       'describtion' => params[:describtion],
       'age' => params[:age],
-      'city' => params[:city]
+      'city' => city
     )
 
     #Sauvegarde en BDD
     if @post.save
-      redirect_to gossips_path, alert: "Enregistrement réussi !"
+      log_in(@post)
+      redirect_to gossips_path, alert: "Votre compte a bien été enregistré !"
     else
-      flash.now[:alert] = "Echec à l'enregistrement !"
+      flash.now[:danger] = "Votre compte n'a pas pu être créé, vérifiez si les champs sont bien remplis !"
       render 'new'
     end
   end

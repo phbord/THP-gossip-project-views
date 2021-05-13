@@ -1,4 +1,6 @@
 class CommentsController < ApplicationController
+  before_action :authenticate_user, only: [:new, :create, :edit, :update, :destroy]
+
   def index
   end
 
@@ -58,6 +60,15 @@ class CommentsController < ApplicationController
     else
       flash.now[:alert] = "Echec à la suppression !"
       render :show
+    end
+  end
+
+  private
+
+  def authenticate_user
+    unless current_user
+      flash[:danger] = "Veuillez vous connecter !"
+      redirect_to new_session_path
     end
   end
 end
