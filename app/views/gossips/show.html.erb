@@ -1,6 +1,13 @@
 <div class="container pt-5">
     <h1>Potin <%= @id %></h1>
 
+    <%# ALERT %>
+    <% flash.each do |type, msg| %>
+        <div class="alert alert-success my-3" role="alert">
+            <%= msg %>
+        </div>
+    <% end %>
+
     <div class="card mt-3">
         <%# BODY %>
         <ul class="list-group list-group-flush">
@@ -27,11 +34,18 @@
                         confirm: "êtes-vous sûr?" 
                     } %>
                     <% if logged_in? %>
-                        <%= button_to 'Likes', 
-                                likes_path, 
-                                params: {:id => @id, :type => "Gossip"}, 
-                                :method=>:post, 
-                                :class => "btn btn-outline-primary btn-sm ml-3" %>
+                        <% if Gossip.find(@id).likes.size > 0 %>
+                            <%= button_to 'Unlikes', 
+                                    like_path(@id), 
+                                    method: 'delete', 
+                                    class: 'btn btn-outline-danger btn-sm' %>
+                        <% else %>
+                            <%= button_to 'Likes', 
+                                    likes_path, 
+                                    params: {:id => @id, :type => "Gossip"}, 
+                                    :method=>:post, 
+                                    :class => "btn btn-outline-primary btn-sm" %>
+                        <% end %>
                     <% else %>
                         <span class="text-muted ml-3">Likes</span>
                     <% end %>

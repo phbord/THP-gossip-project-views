@@ -1,6 +1,13 @@
 <div class="container pt-5">
     <h1>Ville de "<%= @city.name %>"</h1>
 
+    <%# ALERT %>
+    <% flash.each do |type, msg| %>
+        <div class="alert alert-success my-3" role="alert">
+            <%= msg %>
+        </div>
+    <% end %>
+
     <%# LISTE DES POTINS %>
     <p class="mt-3">Liste des potins</p>
     <ul class="row d-flex justify-content-start">
@@ -13,11 +20,18 @@
                         <%# LIKES %>
                         <div class="card-text d-flex justify-content-between align-items-sm-center flex-wrap mt-3">
                             <% if logged_in? %>
-                                <%= button_to 'Likes', 
-                                        likes_path, 
-                                        params: {:id => g.id, :type => "Gossip"}, 
-                                        :method=>:post, 
-                                        :class => "btn btn-outline-primary btn-sm" %>
+                                <% if g.likes.size > 0 %>
+                                    <%= button_to 'Unlikes', 
+                                            like_path(g.id), 
+                                            method: 'delete', 
+                                            class: 'btn btn-outline-danger btn-sm' %>
+                                <% else %>
+                                    <%= button_to 'Likes', 
+                                            likes_path, 
+                                            params: {:id => g.id, :type => "Gossip"}, 
+                                            :method=>:post, 
+                                            :class => "btn btn-outline-primary btn-sm" %>
+                                <% end %>
                             <% else %>
                                 <span class="text-muted">Likes</span>
                             <% end %>

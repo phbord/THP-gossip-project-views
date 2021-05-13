@@ -9,16 +9,14 @@ class LikesController < ApplicationController
 
   def create
     #Récupération des champs du formulaire
-    puts "<"*30
-    p current_user
-    p params[:type]
-    puts ">"*30
     @like = Like.create!(
       user_id: current_user.id,
       like_target_id: params[:id],
       like_target_type: params[:type]
     )
-    redirect_back(fallback_location: gossips_path)
+
+    #Sauvegarde en BDD
+    redirect_back(fallback_location: gossips_path, alert: "Ajout du like, réussie !")
   end
 
   def show
@@ -31,10 +29,16 @@ class LikesController < ApplicationController
   end
 
   def destroy
-    #l = Like.find_by(id: params[:id])
+    #Récupération des champs du formulaire
     l = Like.find_by(like_target_id: params[:id])
-    l.delete
-    #l.destroy
+
+    #Sauvegarde en BDD
+    if l.destroy
+      redirect_back(fallback_location: gossips_path, alert: "Suppression du like, réussie !")
+    else
+      flash.now[:alert] = "Echec à la suppression du like !"
+      render gossips_path
+    end
   end
 end
 
