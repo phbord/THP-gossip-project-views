@@ -34,6 +34,8 @@ Things you may want to cover:
   * `rails g controller gossips index new create show edit update destroy`
   * `rails g controller comments index new create show edit update destroy`
   * `rails g controller tags index new create show edit update destroy`
+  * `rails generate migration AddEmailAndPasswordToUser`
+  * `rails g controller sessions index new create show edit update destroy`
 
 * How to run the test suite
 
@@ -41,15 +43,18 @@ Things you may want to cover:
 
 * Deployment instructions
   * diagramme ERD : _db:/diagram_erd.vpd.pdf_
-  * `bundle i`              => installer les gem
-  * `rails db:create`       => créer la BDD
-  * `rails db:migrate`      => exécuter la migratio
-  * `rails db:seed`         => remplir les BDD
-  * `rails routes`          => voir les routes
-  * `rails server`          => lancer le serveur
-  * `http://localhost:3000/`=> url racine
+  * `bundle i`                => installer les gem
+  * `rails db:create`         => créer la BDD
+  * `rails generate migration NomDeMaMigration` => préparer une migration
+  * `rails db:migrate`        => exécuter la migration
+  * `rails db:rollback`       => supprimer une migration
+  * `rails db:migrate:status` => voir la liste des migrations
+  * `rails db:seed`           => remplir les BDD
+  * `rails routes`            => voir les routes
+  * `rails server`            => lancer le serveur
+  * `http://localhost:3000/`  => url racine
 
-* Tests
+* TESTS en console
 
 |ACTION|COMMANDE|
 |:---|:---|
@@ -62,6 +67,14 @@ Things you may want to cover:
 |Créer un tag|`Tag.create(title: "titre")`|
 |Créer un message privé|`PrivateMessage.create(sender: utilisateur_existant, recipient: utilisateur_existant, content: "texte")`|
 |créer un utilisateur nommé `anonymous`|`User.create(first_name: "anonymous", last_name: "anonymous", describtion: "grosse buse", age: 1, city_id: City.first.id)`|
+|créer un user et création du hash|`my_user = User.create(password: "foobar", email: "kris@dick.org", first_name: "anonymous", last_name: "anonymous", describtion: "grosse buse", age: 1, city_id: City.first.id)`|
+|vérifier si un string correspond à son mot de passe|`my_user.authenticate("foobar")`|
+||`u = User.create(password: "foobar", email: "kris@dick.org", first_name: "erwan", last_name: "le corre", describtion: "rrrrrrrrrrrrrre", age: 35, city_id: City.first.id)`|
+||``|
+||``|
+||``|
+||``|
+||``|
 
 ## Schema de la Base de Données
 [![](https://mermaid.ink/img/eyJjb2RlIjoiZXJEaWFncmFtXG4gICAgICAgIGNpdGllcyB8fC0tb3sgdXNlcnM6IGJlbG9uZ3NfdG9cbiAgICAgICAgY2l0aWVze1xuICAgICAgICBpbnRlZ2VyIGlkX1BLXG4gICAgICAgIHN0cmluZyBuYW1lXG4gICAgICAgIHN0cmluZyB6aXBfY29kZVxuICAgICAgICB9XG4gICAgICAgIHVzZXJzIHx8LS1veyBnb3NzaXBzOiBiZWxvbmdzX3RvXG4gICAgICAgIHVzZXJze1xuICAgICAgICBpbnRlZ2VyIGlkX1BLXG4gICAgICAgIHN0cmluZyBmaXJzdF9uYW1lXG4gICAgICAgIHN0cmluZyBsYXN0X25hbWVcbiAgICAgICAgdGV4dCBkZXNjcmlwdGlvblxuICAgICAgICBpbnRlZ2VyIGFnZVxuICAgICAgICBpbnRlZ2VyIGNpdHlfaWRfRktcbiAgICAgICAgfVxuICAgICAgICBnb3NzaXBze1xuICAgICAgICBpbnRlZ2VyIGlkX1BLXG4gICAgICAgIHN0cmluZyB0aXRsZVxuICAgICAgICB0ZXh0IGNvbnRlbnRcbiAgICAgICAgaW50ZWdlciB1c2VyX2lkX0ZLXG4gICAgICAgIGludGVnZXIgdGFnX2lkX0ZLXG4gICAgICAgIH1cbiAgICAgICAgdXNlcnMgfHwtLW97IHByaXZhdGVfbWVzc2FnZXM6IGJlbG9uZ3NfdG9cbiAgICAgICAgcHJpdmF0ZV9tZXNzYWdlc3tcbiAgICAgICAgaW50ZWdlciBpZF9QS1xuICAgICAgICB0ZXh0IGNvbnRlbnRcbiAgICAgICAgaW50ZWdlciBzZW5kZXJfaWQtVXNlcl9GS1xuICAgICAgICBpbnRlZ2VyIHJlY2lldmVyX2lkLVVzZXJfRktcbiAgICAgICAgfVxuICAgICAgICB1c2VycyB8fC0tb3sgY29tbWVudHM6IGJlbG9uZ3NfdG9cbiAgICAgICAgY29tbWVudHN7XG4gICAgICAgIGludGVnZXIgaWRfUEtcbiAgICAgICAgdGV4dCBjb250ZW50XG4gICAgICAgIGludGVnZXIgZ29zc2lwX2lkX0ZLXG4gICAgICAgIGludGVnZXIgdXNlcl9pZF9GS1xuICAgICAgICB9XG4gICAgICAgIGdvc3NpcHMgfHwtLW97IGxpa2VzOiBiZWxvbmdzX3RvXG4gICAgICAgIGxpa2Vze1xuICAgICAgICBpbnRlZ2VyIGlkX1BLXG4gICAgICAgIGludGVnZXIgZ29zc2lwc19pZF9GS1xuICAgICAgICBpbnRlZ2VyIHVzZXJfaWRfRktcbiAgICAgICAgaW50ZWdlciBjb21tZW50X2lkX0ZLXG4gICAgICAgIH1cbiAgICAgICAgY29tbWVudHMgfHwtLW97IGxpa2VzOiBiZWxvbmdzX3RvXG4gICAgICAgIHVzZXJzIHx8LS1veyBsaWtlczogYmVsb25nc190b1xuICAgICAgICB0YWdzIHx8LS1veyBnb3NzaXBzOiBiZWxvbmdzX3RvXG4gICAgICAgIHRhZ3N7XG4gICAgICAgIGludGVnZXIgaWRfUEtcbiAgICAgICAgc3RyaW5nIHRpdGxlXG4gICAgICAgIH0iLCJtZXJtYWlkIjp7fSwidXBkYXRlRWRpdG9yIjpmYWxzZX0)](https://mermaid-js.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoiZXJEaWFncmFtXG4gICAgICAgIGNpdGllcyB8fC0tb3sgdXNlcnM6IGJlbG9uZ3NfdG9cbiAgICAgICAgY2l0aWVze1xuICAgICAgICBpbnRlZ2VyIGlkX1BLXG4gICAgICAgIHN0cmluZyBuYW1lXG4gICAgICAgIHN0cmluZyB6aXBfY29kZVxuICAgICAgICB9XG4gICAgICAgIHVzZXJzIHx8LS1veyBnb3NzaXBzOiBiZWxvbmdzX3RvXG4gICAgICAgIHVzZXJze1xuICAgICAgICBpbnRlZ2VyIGlkX1BLXG4gICAgICAgIHN0cmluZyBmaXJzdF9uYW1lXG4gICAgICAgIHN0cmluZyBsYXN0X25hbWVcbiAgICAgICAgdGV4dCBkZXNjcmlwdGlvblxuICAgICAgICBpbnRlZ2VyIGFnZVxuICAgICAgICBpbnRlZ2VyIGNpdHlfaWRfRktcbiAgICAgICAgfVxuICAgICAgICBnb3NzaXBze1xuICAgICAgICBpbnRlZ2VyIGlkX1BLXG4gICAgICAgIHN0cmluZyB0aXRsZVxuICAgICAgICB0ZXh0IGNvbnRlbnRcbiAgICAgICAgaW50ZWdlciB1c2VyX2lkX0ZLXG4gICAgICAgIGludGVnZXIgdGFnX2lkX0ZLXG4gICAgICAgIH1cbiAgICAgICAgdXNlcnMgfHwtLW97IHByaXZhdGVfbWVzc2FnZXM6IGJlbG9uZ3NfdG9cbiAgICAgICAgcHJpdmF0ZV9tZXNzYWdlc3tcbiAgICAgICAgaW50ZWdlciBpZF9QS1xuICAgICAgICB0ZXh0IGNvbnRlbnRcbiAgICAgICAgaW50ZWdlciBzZW5kZXJfaWQtVXNlcl9GS1xuICAgICAgICBpbnRlZ2VyIHJlY2lldmVyX2lkLVVzZXJfRktcbiAgICAgICAgfVxuICAgICAgICB1c2VycyB8fC0tb3sgY29tbWVudHM6IGJlbG9uZ3NfdG9cbiAgICAgICAgY29tbWVudHN7XG4gICAgICAgIGludGVnZXIgaWRfUEtcbiAgICAgICAgdGV4dCBjb250ZW50XG4gICAgICAgIGludGVnZXIgZ29zc2lwX2lkX0ZLXG4gICAgICAgIGludGVnZXIgdXNlcl9pZF9GS1xuICAgICAgICB9XG4gICAgICAgIGdvc3NpcHMgfHwtLW97IGxpa2VzOiBiZWxvbmdzX3RvXG4gICAgICAgIGxpa2Vze1xuICAgICAgICBpbnRlZ2VyIGlkX1BLXG4gICAgICAgIGludGVnZXIgZ29zc2lwc19pZF9GS1xuICAgICAgICBpbnRlZ2VyIHVzZXJfaWRfRktcbiAgICAgICAgaW50ZWdlciBjb21tZW50X2lkX0ZLXG4gICAgICAgIH1cbiAgICAgICAgY29tbWVudHMgfHwtLW97IGxpa2VzOiBiZWxvbmdzX3RvXG4gICAgICAgIHVzZXJzIHx8LS1veyBsaWtlczogYmVsb25nc190b1xuICAgICAgICB0YWdzIHx8LS1veyBnb3NzaXBzOiBiZWxvbmdzX3RvXG4gICAgICAgIHRhZ3N7XG4gICAgICAgIGludGVnZXIgaWRfUEtcbiAgICAgICAgc3RyaW5nIHRpdGxlXG4gICAgICAgIH0iLCJtZXJtYWlkIjp7fSwidXBkYXRlRWRpdG9yIjpmYWxzZX0)
@@ -115,3 +128,35 @@ Things you may want to cover:
   - controller => met à disposition de la "view", un array de tags
 - GOD MODE : ajouter plusieurs tags à un potin
   - regarder le concept des `nested forms`
+
+### Login / logout
+- écran de connexion avec "email" et "mot de passe"
+  - si connection => redirection vers la page d'accueil
+  - `sessions_controller` (méthodes `#new` et `#create`)
+- Logout
+  - sessions#destroy
+- bouton qui change en fonction de l'état de l'utilisateur => "navbar"
+  - si pas connecté => dropdown "S'inscrire / Se connecter"
+    - bouton pour lien (`users#new`)
+    - lien pour se connecter (`sessions#new`)
+  - si connecté => bouton pour se déconnecter (sessions#destroy)
+### Création des potins
+- le potin créé doit être associé à l'utilisateur connecté
+- idem pour les commentaires
+### Impossible de commérer sans inscription
+- méthodes `#new` et `#create` vérifient que l'utilisateur est bien connecté avant de se lancer
+- si pas connecté => redirection vers l'écran de login
+  - création de potins
+  - affichage du potin
+  - création de commentaires
+### Édition et destruction des potins
+- pour éditer le potin => l'utilisateur connecté est le créateur du potin
+  - méthodes `gossips#edit`, `gossips#update` et `gossips#destroy` => vérifient que le "current_user" soit bien le créateur du potin
+### Like that
+- liker un potin + nombre de likes d'un potin, sur les pages
+  - index des potins
+  - villes (affiche les potins pour une ville)
+  - affichage d'un potin
+- like sera attribué à l'utilisateur en cours
+- impossible de liker si le visiteur n'est pas connecté
+- possible de déliker un potin

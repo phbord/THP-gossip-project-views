@@ -8,6 +8,8 @@
 
 require 'faker'
 
+Faker::Config.locale = "fr"
+
 User.destroy_all
 City.destroy_all
 Gossip.destroy_all
@@ -30,6 +32,8 @@ PrivateMessage.destroy_all
         first_name: Faker::Name.last_name,
         last_name: Faker::Name.last_name,
         describtion: Faker::Lorem.paragraph_by_chars(number: 10, supplemental: false),
+        email: Faker::Internet.email,
+        password: Faker::Internet.password(min_length: 10, max_length: 20),
         age: Faker::Number.number(digits: 2),
         city: City.all.sample
     )

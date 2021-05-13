@@ -19,6 +19,6 @@ ul,li {
    padding-left: 0;
 }
 
-input,textarea {
+input,textarea,select {
    max-width: 400px;
 }
