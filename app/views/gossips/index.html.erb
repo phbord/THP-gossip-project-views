@@ -33,12 +33,16 @@
                         <%# LIKES %>
                         <div class="card-text d-flex justify-content-between align-items-sm-center flex-wrap mt-3">
                             <% if logged_in? %>
-                                <%= link_to "Likes", gossip_path(g.id), class: "btn btn-outline-primary btn-sm" %>
+                                <%= button_to 'Likes', 
+                                        likes_path, 
+                                        params: {:id => g.id, :type => "Gossip"}, 
+                                        :method=>:post, 
+                                        :class => "btn btn-outline-primary btn-sm" %>
                             <% else %>
                                 <span class="text-muted">Likes</span>
                             <% end %>
                             <span class="badge badge-pill badge-primary">
-                                <%= @likes.where(gossip_id: g.id).count %>
+                                <%= g.likes.size %>
                             </span>
                         </div>
                     </div>

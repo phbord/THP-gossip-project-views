@@ -34,9 +34,10 @@ Things you may want to cover:
   * `rails g controller gossips index new create show edit update destroy`
   * `rails g controller comments index new create show edit update destroy`
   * `rails g controller tags index new create show edit update destroy`
-  * `rails generate migration AddEmailAndPasswordToUser`
+  * `rails g migration AddEmailAndPasswordToUser`
   * `rails g controller sessions index new create show edit update destroy`
   * `rails g controller likes index new create show edit update destroy`
+  * `rails g migration AlterLikePolymorphic`
 
 * How to run the test suite
 

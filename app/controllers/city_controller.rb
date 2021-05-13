@@ -1,6 +1,7 @@
 class CityController < ApplicationController
   def show
     @city = City.find(params[:id])
+    @likes = Like.all
     #@gossips = Gossip.all.where(user_id: params[:id])
     @gossips=[]
     Gossip.all.each {|gossip|

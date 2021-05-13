@@ -19,13 +19,25 @@
                         à <%= @gossip.user.city.name %>
                     </em>
                 </div>
-                <%# Boutons "Edition" et "Suppression" %>
-                <div class="my-3">
-                    <%= link_to "Editer", edit_gossip_path(@gossip.id), class: "btn btn-outline-primary btn-sm" %>
-                    <%= link_to "supprimer", gossip_path(@gossip.id), :method => :delete, class: "btn btn-outline-danger btn-sm", data: { 
+                <%# Boutons + Likes %>
+                <div class="d-flex align-items-sm-center flex-wrap my-3">
+                    <%= link_to "Editer", edit_gossip_path(@gossip.id), class: "btn btn-outline-primary btn-sm mr-2" %>
+                    <%= link_to "supprimer", gossip_path(@gossip.id), :method => :delete, class: "btn btn-outline-danger btn-sm mr-2", data: { 
                         method: "DELETE", 
                         confirm: "êtes-vous sûr?" 
                     } %>
+                    <% if logged_in? %>
+                        <%= button_to 'Likes', 
+                                likes_path, 
+                                params: {:id => @id, :type => "Gossip"}, 
+                                :method=>:post, 
+                                :class => "btn btn-outline-primary btn-sm ml-3" %>
+                    <% else %>
+                        <span class="text-muted ml-3">Likes</span>
+                    <% end %>
+                    <span class="badge badge-pill badge-primary ml-2">
+                        <%= Gossip.find(@id).likes.size %>
+                    </span>
                 </div>
             </li>
             <%# COMMENTAIRES %>

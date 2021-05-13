@@ -2,7 +2,7 @@ class Comment < ApplicationRecord
     validates :content,
     presence: true
 
-    has_many :likes
+    has_many :likes, as: :like_target
     belongs_to :user
     #belongs_to :gossip
     #belongs_to :comment

@@ -10,8 +10,24 @@
                     <div class="card-body">
                         <h5 class="card-title"><%= g.title %></h5>
                         <div class="card-text"><%= g.user.first_name %></div>
+                        <%# LIKES %>
+                        <div class="card-text d-flex justify-content-between align-items-sm-center flex-wrap mt-3">
+                            <% if logged_in? %>
+                                <%= button_to 'Likes', 
+                                        likes_path, 
+                                        params: {:id => g.id, :type => "Gossip"}, 
+                                        :method=>:post, 
+                                        :class => "btn btn-outline-primary btn-sm" %>
+                            <% else %>
+                                <span class="text-muted">Likes</span>
+                            <% end %>
+                            <span class="badge badge-pill badge-primary">
+                                <%= g.likes.size %>
+                            </span>
+                        </div>
+                        <%# Bouton %>
                         <div class="mt-3">
-                            <%= link_to g.title, gossip_path(g.id), class: "btn btn-success" %>
+                            <%= link_to g.title, gossip_path(g.id), class: "btn btn-success btn-sm" %>
                         </div>
                     </div>
                 </div>
