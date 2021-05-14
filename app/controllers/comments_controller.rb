@@ -73,13 +73,6 @@ class CommentsController < ApplicationController
     Comment.find(params[:id])
   end
 
-  def authenticate_user
-    unless current_user
-      flash[:danger] = "Veuillez vous connecter !"
-      redirect_to new_session_path
-    end
-  end
-
   def post_params
     post_params = params.require(:comment).permit(:content)
   end

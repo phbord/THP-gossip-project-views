@@ -76,15 +76,9 @@ class GossipsController < ApplicationController
 
   def tags_all
     Tag.all
-    #Tag.all.map { |t| [ t.title, t.id ] }
   end
 
-  def authenticate_user
-    unless current_user
-      flash[:danger] = "Veuillez vous connecter !"
-      redirect_to new_session_path
-    end
-  end
+  private
 
   def post_params
     post_params = params.require(:gossip).permit(:title, :content)
