@@ -74,11 +74,21 @@ Things you may want to cover:
 ||`u = User.create(password: "foobar", email: "kris@dick.org", first_name: "erwan", last_name: "le corre", describtion: "rrrrrrrrrrrrrre", age: 35, city_id: City.first.id)`|
 ||``|
 
+## Heroku
+- `heroku create nom-de-ton-app`
+- `git remote --v`
+- `git config --list | grep heroku`
+- `git push heroku main`
+- `heroku run rails db:migrate`
+
 ## Problèmes avec Heroku
 - `bundle update`
 - `git add Gemfile.lock`
 - `git commit -m 'Update Gemfile.lock for Heroku'`
 - `git push heroku master`
+- `bundle lock --add-platform ruby`
+- `bundle lock --add-platform x86_64-linux`
+- `bundle lock --add-platform x86-mingw32 x86-mswin32 x64-mingw32 java`
 
 https://git.heroku.com/thpgossip.git
 
