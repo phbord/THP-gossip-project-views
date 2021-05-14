@@ -9,7 +9,8 @@
     <% end %>
 
     <%# FORMULAIRE %>
-    <%= form_tag url_for(action: 'create'), method: "post" do %>
+    <%= form_tag(gossip_comment_path(@gossip_id, @comment.id), method: 'patch') do %>
+        <%= hidden_field_tag 'gossip_id', @gossip_id %>
         <div class="form-group">
             <%= label_tag 'Commentaire' %>
             <%= text_area_tag 'content', @comment.content, required: true, class: 'form-control' %>

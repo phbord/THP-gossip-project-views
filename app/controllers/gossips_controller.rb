@@ -36,21 +36,16 @@ class GossipsController < ApplicationController
 
   def edit
     @gossip = gossip_find
+    @id = params[:id]
   end
 
   def update
     #Récupération des champs du formulaire
-    @model = Model.find(params[:id])
-    update_params = [
-      'title' => params[:title],
-      'content' => params[:content],
-      'user_id' => User.find_by(first_name: "anonymous").id,
-      'tag_id' => Tag.all.sample.id
-    ]
+    @gossip = gossip_find
 
     #Sauvegarde en BDD
-    if @model.update(update_params)
-      redirect_to @model, alert: "Enregistrement réussi !"
+    if @gossip.update(post_params)
+      redirect_to gossip_path, alert: "Enregistrement réussi !"
     else
       flash.now[:alert] = "Echec à l'enregistrement !"
       render :edit
@@ -84,12 +79,14 @@ class GossipsController < ApplicationController
     #Tag.all.map { |t| [ t.title, t.id ] }
   end
 
-  private
-
   def authenticate_user
     unless current_user
       flash[:danger] = "Veuillez vous connecter !"
       redirect_to new_session_path
     end
+  end
+
+  def post_params
+    post_params = params.require(:gossip).permit(:title, :content)
   end
 end
