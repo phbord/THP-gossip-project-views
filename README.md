@@ -14,8 +14,9 @@ Things you may want to cover:
 
 * Configuration
 
-* Url Heroku
+* Url
   * https://git.heroku.com/thpgossip.git
+  * https://thpgossip.herokuapp.com/
 
 * Database creation
   * `rails generate model User first_name:string last_name:string describtion:text age:integer`
@@ -83,6 +84,9 @@ Things you may want to cover:
 - `git config --list | grep heroku`
 - `git push heroku main`
 - `heroku run rails db:migrate`
+- `heroku run rails db:seed`
+- `heroku ps:scale web=1`
+- `heroku open`
 
 ## Problèmes avec Heroku
 - `bundle update`

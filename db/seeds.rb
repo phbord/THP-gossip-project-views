@@ -18,6 +18,11 @@ Comment.destroy_all
 Like.destroy_all
 PrivateMessage.destroy_all
 
+City.create!(
+    name: "Paris",
+    zip_code: "75000"
+)
+
 10.times do
     Tag.create!(
         title: Faker::Lorem.sentence(word_count: 1)

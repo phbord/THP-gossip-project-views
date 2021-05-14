@@ -1,6 +1,7 @@
 class UserController < ApplicationController
   def show
-    @user = User.find(params[:id])
+    #@user = User.find(params[:id])
+    @user = current_user
   end
 
   def new
@@ -19,6 +20,7 @@ class UserController < ApplicationController
       'city' => city
     )
 
+puts "*"*50
     #Sauvegarde en BDD
     if @post.save
       log_in(@post)
