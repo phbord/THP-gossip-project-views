@@ -23,9 +23,6 @@ json = File.read('db/cities.json')
 json_obj = JSON.parse(json)
 
 json_obj.count.times do |i|
-    puts "-"*50
-    p json_obj[i]["zip_code"]
-    p json_obj[i]["name"]
     name = json_obj[i]["name"]
     zip_code = json_obj[i]["zip_code"]
     name = '-' if name.nil?
@@ -41,11 +38,6 @@ end
     Tag.create!(
         title: Faker::Lorem.sentence(word_count: 1)
     )
-
-    # City.create!(
-    #     name: Faker::Address.city,
-    #     zip_code: Faker::Address.zip_code
-    # )
 
     User.create!(
         first_name: Faker::Name.last_name,
