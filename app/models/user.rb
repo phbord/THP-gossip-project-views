@@ -25,4 +25,12 @@ class User < ApplicationRecord
     has_many :comments, as: :comment_type
     has_many :sent_messages, foreign_key: 'sender_id', class_name: "PrivateMessage"
     has_many :received_messages, foreign_key: 'recipient_id', class_name: "PrivateMessage"
+
+    #Système de COOKIES :
+    #Stockage en base de `remember_digest` de l'utilisateur
+    def remember(remember_token)
+        #Hashage de `remember_token`
+        remember_digest = BCrypt::Password.create(remember_token)
+        self.update(remember_digest: remember_digest)
+    end
 end

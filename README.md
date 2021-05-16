@@ -28,6 +28,10 @@ Things you may want to cover:
   * `rails generate model PrivateMessage content:text`
 
 * Database initialization
+  * `rails g migration AddEmailAndPasswordToUser`
+  * `rails g migration AlterLikePolymorphic`
+  * `rails g migration add_remember_digest_to_users remember_digest`
+  * `rails g migration AddCheckboxUserSubscriptionAndConnection`
 
 * Controller creation
   * `rails g controller team index`
@@ -38,10 +42,8 @@ Things you may want to cover:
   * `rails g controller gossips index new create show edit update destroy`
   * `rails g controller comments index new create show edit update destroy`
   * `rails g controller tags index new create show edit update destroy`
-  * `rails g migration AddEmailAndPasswordToUser`
   * `rails g controller sessions index new create show edit update destroy`
   * `rails g controller likes index new create show edit update destroy`
-  * `rails g migration AlterLikePolymorphic`
 
 * How to run the test suite
 
@@ -74,8 +76,15 @@ Things you may want to cover:
 |Créer un message privé|`PrivateMessage.create(sender: utilisateur_existant, recipient: utilisateur_existant, content: "texte")`|
 |créer un utilisateur nommé `anonymous`|`User.create(first_name: "anonymous", last_name: "anonymous", describtion: "grosse buse", age: 1, city_id: City.first.id)`|
 |créer un user et création du hash|`my_user = User.create(password: "foobar", email: "kris@dick.org", first_name: "anonymous", last_name: "anonymous", describtion: "grosse buse", age: 1, city_id: City.first.id)`|
+|Mots de passe||
 |vérifier si un string correspond à son mot de passe|`my_user.authenticate("foobar")`|
 ||`u = User.create(password: "foobar", email: "kris@dick.org", first_name: "erwan", last_name: "le corre", describtion: "rrrrrrrrrrrrrre", age: 35, city_id: City.first.id)`|
+|Cookies||
+|créer un token|`token = SecureRandom.urlsafe_base64`|
+|créer une clé cryptée|`digest = BCrypt::Password.create(token)`|
+|vérifier l'égalité entre le token et la clé|`BCrypt::Password.new(digest).is_password?(token)`|
+||``|
+||``|
 ||``|
 
 ## Heroku
@@ -86,16 +95,16 @@ Things you may want to cover:
 - `heroku run rails db:migrate`
 - `heroku run rails db:seed`
 - `heroku ps:scale web=1`
-- `heroku open`
+- `heroku open` => ouverture de l'application dans le navigateur
 
 ## Problèmes avec Heroku
-- `bundle update`
-- `git add Gemfile.lock`
-- `git commit -m 'Update Gemfile.lock for Heroku'`
-- `git push heroku master`
 - `bundle lock --add-platform ruby`
 - `bundle lock --add-platform x86_64-linux`
-- supprimer `x86_64-darwin-20` dans Platform, fichier "Gemfile.lock"
+- `bundle install`
+- `git add .`
+- `git commit -m 'Bundler fix'`
+- `git push heroku master`
+- `https://devcenter.heroku.com/articles/bundler-version`
 
 ## Schema de la Base de Données
 [![](https://mermaid.ink/img/eyJjb2RlIjoiZXJEaWFncmFtXG4gICAgICAgIGNpdGllcyB8fC0tb3sgdXNlcnM6IGJlbG9uZ3NfdG9cbiAgICAgICAgY2l0aWVze1xuICAgICAgICBpbnRlZ2VyIGlkX1BLXG4gICAgICAgIHN0cmluZyBuYW1lXG4gICAgICAgIHN0cmluZyB6aXBfY29kZVxuICAgICAgICB9XG4gICAgICAgIHVzZXJzIHx8LS1veyBnb3NzaXBzOiBiZWxvbmdzX3RvXG4gICAgICAgIHVzZXJze1xuICAgICAgICBpbnRlZ2VyIGlkX1BLXG4gICAgICAgIHN0cmluZyBmaXJzdF9uYW1lXG4gICAgICAgIHN0cmluZyBsYXN0X25hbWVcbiAgICAgICAgdGV4dCBkZXNjcmlwdGlvblxuICAgICAgICBpbnRlZ2VyIGFnZVxuICAgICAgICBpbnRlZ2VyIGNpdHlfaWRfRktcbiAgICAgICAgfVxuICAgICAgICBnb3NzaXBze1xuICAgICAgICBpbnRlZ2VyIGlkX1BLXG4gICAgICAgIHN0cmluZyB0aXRsZVxuICAgICAgICB0ZXh0IGNvbnRlbnRcbiAgICAgICAgaW50ZWdlciB1c2VyX2lkX0ZLXG4gICAgICAgIGludGVnZXIgdGFnX2lkX0ZLXG4gICAgICAgIH1cbiAgICAgICAgdXNlcnMgfHwtLW97IHByaXZhdGVfbWVzc2FnZXM6IGJlbG9uZ3NfdG9cbiAgICAgICAgcHJpdmF0ZV9tZXNzYWdlc3tcbiAgICAgICAgaW50ZWdlciBpZF9QS1xuICAgICAgICB0ZXh0IGNvbnRlbnRcbiAgICAgICAgaW50ZWdlciBzZW5kZXJfaWQtVXNlcl9GS1xuICAgICAgICBpbnRlZ2VyIHJlY2lldmVyX2lkLVVzZXJfRktcbiAgICAgICAgfVxuICAgICAgICB1c2VycyB8fC0tb3sgY29tbWVudHM6IGJlbG9uZ3NfdG9cbiAgICAgICAgY29tbWVudHN7XG4gICAgICAgIGludGVnZXIgaWRfUEtcbiAgICAgICAgdGV4dCBjb250ZW50XG4gICAgICAgIGludGVnZXIgZ29zc2lwX2lkX0ZLXG4gICAgICAgIGludGVnZXIgdXNlcl9pZF9GS1xuICAgICAgICB9XG4gICAgICAgIGdvc3NpcHMgfHwtLW97IGxpa2VzOiBiZWxvbmdzX3RvXG4gICAgICAgIGxpa2Vze1xuICAgICAgICBpbnRlZ2VyIGlkX1BLXG4gICAgICAgIGludGVnZXIgZ29zc2lwc19pZF9GS1xuICAgICAgICBpbnRlZ2VyIHVzZXJfaWRfRktcbiAgICAgICAgaW50ZWdlciBjb21tZW50X2lkX0ZLXG4gICAgICAgIH1cbiAgICAgICAgY29tbWVudHMgfHwtLW97IGxpa2VzOiBiZWxvbmdzX3RvXG4gICAgICAgIHVzZXJzIHx8LS1veyBsaWtlczogYmVsb25nc190b1xuICAgICAgICB0YWdzIHx8LS1veyBnb3NzaXBzOiBiZWxvbmdzX3RvXG4gICAgICAgIHRhZ3N7XG4gICAgICAgIGludGVnZXIgaWRfUEtcbiAgICAgICAgc3RyaW5nIHRpdGxlXG4gICAgICAgIH0iLCJtZXJtYWlkIjp7fSwidXBkYXRlRWRpdG9yIjpmYWxzZX0)](https://mermaid-js.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoiZXJEaWFncmFtXG4gICAgICAgIGNpdGllcyB8fC0tb3sgdXNlcnM6IGJlbG9uZ3NfdG9cbiAgICAgICAgY2l0aWVze1xuICAgICAgICBpbnRlZ2VyIGlkX1BLXG4gICAgICAgIHN0cmluZyBuYW1lXG4gICAgICAgIHN0cmluZyB6aXBfY29kZVxuICAgICAgICB9XG4gICAgICAgIHVzZXJzIHx8LS1veyBnb3NzaXBzOiBiZWxvbmdzX3RvXG4gICAgICAgIHVzZXJze1xuICAgICAgICBpbnRlZ2VyIGlkX1BLXG4gICAgICAgIHN0cmluZyBmaXJzdF9uYW1lXG4gICAgICAgIHN0cmluZyBsYXN0X25hbWVcbiAgICAgICAgdGV4dCBkZXNjcmlwdGlvblxuICAgICAgICBpbnRlZ2VyIGFnZVxuICAgICAgICBpbnRlZ2VyIGNpdHlfaWRfRktcbiAgICAgICAgfVxuICAgICAgICBnb3NzaXBze1xuICAgICAgICBpbnRlZ2VyIGlkX1BLXG4gICAgICAgIHN0cmluZyB0aXRsZVxuICAgICAgICB0ZXh0IGNvbnRlbnRcbiAgICAgICAgaW50ZWdlciB1c2VyX2lkX0ZLXG4gICAgICAgIGludGVnZXIgdGFnX2lkX0ZLXG4gICAgICAgIH1cbiAgICAgICAgdXNlcnMgfHwtLW97IHByaXZhdGVfbWVzc2FnZXM6IGJlbG9uZ3NfdG9cbiAgICAgICAgcHJpdmF0ZV9tZXNzYWdlc3tcbiAgICAgICAgaW50ZWdlciBpZF9QS1xuICAgICAgICB0ZXh0IGNvbnRlbnRcbiAgICAgICAgaW50ZWdlciBzZW5kZXJfaWQtVXNlcl9GS1xuICAgICAgICBpbnRlZ2VyIHJlY2lldmVyX2lkLVVzZXJfRktcbiAgICAgICAgfVxuICAgICAgICB1c2VycyB8fC0tb3sgY29tbWVudHM6IGJlbG9uZ3NfdG9cbiAgICAgICAgY29tbWVudHN7XG4gICAgICAgIGludGVnZXIgaWRfUEtcbiAgICAgICAgdGV4dCBjb250ZW50XG4gICAgICAgIGludGVnZXIgZ29zc2lwX2lkX0ZLXG4gICAgICAgIGludGVnZXIgdXNlcl9pZF9GS1xuICAgICAgICB9XG4gICAgICAgIGdvc3NpcHMgfHwtLW97IGxpa2VzOiBiZWxvbmdzX3RvXG4gICAgICAgIGxpa2Vze1xuICAgICAgICBpbnRlZ2VyIGlkX1BLXG4gICAgICAgIGludGVnZXIgZ29zc2lwc19pZF9GS1xuICAgICAgICBpbnRlZ2VyIHVzZXJfaWRfRktcbiAgICAgICAgaW50ZWdlciBjb21tZW50X2lkX0ZLXG4gICAgICAgIH1cbiAgICAgICAgY29tbWVudHMgfHwtLW97IGxpa2VzOiBiZWxvbmdzX3RvXG4gICAgICAgIHVzZXJzIHx8LS1veyBsaWtlczogYmVsb25nc190b1xuICAgICAgICB0YWdzIHx8LS1veyBnb3NzaXBzOiBiZWxvbmdzX3RvXG4gICAgICAgIHRhZ3N7XG4gICAgICAgIGludGVnZXIgaWRfUEtcbiAgICAgICAgc3RyaW5nIHRpdGxlXG4gICAgICAgIH0iLCJtZXJtYWlkIjp7fSwidXBkYXRlRWRpdG9yIjpmYWxzZX0)
@@ -183,8 +192,32 @@ Things you may want to cover:
   1. index des potins
   2. affichage d'un potin
   3. villes (liste des potins d'une ville)
-
-### Mise en ligne sur Heroku
 ### Système de cookies
+- créer un migration
+  - ajout de la colonne `remember_digest(remember_token)` (table _User_)
+  - faire la migration
+- dans le modèle _User_
+  - ajout d'une validation au modèle _User_
+  - ajout d'une methode `remember`
+    - stockage en base de `remember_digest` de l'utilisateur
+    - appel de la méthode d'instance `remember` (helper)
+- dans le helper (sessions)
+  - `app/helpers/sessions_helper.rb`
+  - méthode `remember(user)`
+    - créé le cookie
+    - stocke le `remember_digest` en base
+- dans le controller (sessions)
+  - méthode `create` => insère une ligne en base
+- dans le helper (sessions)
+  - modification de la méthode `current_user`
+    - vérification de l'authentification
+  - méthode `forget(user)`
+      - effacement des cookies
+      - remise du `remember_digest` à nil
+  - méthode `log_out(user)`
+- choix des cookies
+  - ajouter une _checkbox_
+    - sur le formulaire de _connexion_
+    - sur le formulaire d'_enregistrement_
 
 ### Checkbox _Se souvenir de moi_

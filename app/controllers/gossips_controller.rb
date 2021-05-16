@@ -16,7 +16,6 @@ class GossipsController < ApplicationController
       'title' => params[:title],
       'content' => params[:content],
       'user_id' => User.find_by(first_name: "anonymous").id,
-      #'tag_id' => Tag.all.sample.id
       'tag_id' => params[:tag]
     )
 
@@ -77,8 +76,6 @@ class GossipsController < ApplicationController
   def tags_all
     Tag.all
   end
-
-  private
 
   def post_params
     post_params = params.require(:gossip).permit(:title, :content)

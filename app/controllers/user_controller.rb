@@ -5,25 +5,29 @@ class UserController < ApplicationController
   end
 
   def new
+    @cities = City.all
   end
 
   def create
     #Récupération des champs du formulaire
-    city = City.find_by(name: params[:city])
-    @post = User.new(
+    remember_me = params[:remember_me]
+    @user = User.new(
       'email' => params[:email],
       'password' => params[:password],
       'first_name' => params[:first_name],
       'last_name' => params[:last_name],
       'describtion' => params[:describtion],
       'age' => params[:age],
-      'city' => city
+      #'city' => city
+      'city_id' => params[:city]
     )
 
-puts "*"*50
     #Sauvegarde en BDD
-    if @post.save
-      log_in(@post)
+    if @user.save
+      #Système de SESSIONS => vérifie la connexion
+      log_in(@user)
+      #Système de COOKIES => stocke le digest en base et créé les cookies
+      remember(@user) if is_cookie?(remember_me)
       redirect_to gossips_path, alert: "Votre compte a bien été enregistré !"
     else
       flash.now[:danger] = "Votre compte n'a pas pu être créé, vérifiez si les champs sont bien remplis !"

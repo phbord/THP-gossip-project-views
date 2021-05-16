@@ -39,6 +39,7 @@ City.create!(
         describtion: Faker::Lorem.paragraph_by_chars(number: 10, supplemental: false),
         email: Faker::Internet.email,
         password: Faker::Internet.password(min_length: 10, max_length: 20),
+        remember_digest: BCrypt::Password.create(SecureRandom.urlsafe_base64),
         age: Faker::Number.number(digits: 2),
         city: City.all.sample
     )

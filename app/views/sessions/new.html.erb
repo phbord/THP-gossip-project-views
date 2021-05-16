@@ -18,6 +18,11 @@
             <%= label_tag 'Mot de passe' %>
             <%= password_field_tag 'password', '', required: true, class: 'form-control' %>
         </div>
+        <%# Checkbox %>
+        <div class="form-group">
+            <%= check_box_tag :remember_me, true, :checked, class: 'form-check-label mr-2' %>
+            <%= label_tag :remember_me, 'Se souvenir de moi', class:"form-check-label" %>
+        </div>
         <%= submit_tag "Envoyer", class: 'btn btn-primary' %>
     <% end %>
 </div>
