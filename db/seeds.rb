@@ -27,7 +27,7 @@ json_obj.count.times do |i|
     zip_code = json_obj[i]["zip_code"]
     name = '-' if name.nil?
     zip_code = '-' if zip_code.nil?
-    puts "-"*50
+
     City.create!(
         name: name,
         zip_code: zip_code
