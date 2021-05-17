@@ -103,7 +103,7 @@ Things you may want to cover:
 - `bundle install`
 - `git add .`
 - `git commit -m 'Bundler fix'`
-- `git push heroku master`
+- `git push heroku main`
 - `https://devcenter.heroku.com/articles/bundler-version`
 
 ## Schema de la Base de Données
